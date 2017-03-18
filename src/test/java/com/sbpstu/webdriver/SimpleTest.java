@@ -15,7 +15,6 @@ import java.util.List;
  */
 public class SimpleTest extends Init {
 
-
     @Test
     public void test1()
     {
@@ -24,8 +23,6 @@ public class SimpleTest extends Init {
         element.sendKeys("spbstu" + Keys.ENTER);
         List<WebElement> elements = driver.findElements(By.xpath("//*[@id='res']//div[@class='g']//cite"));
         String expected = "spbstu";
-        int x=0;
         Assert.assertTrue(elements.stream().anyMatch(e -> e.getText().contains(expected)));
     }
-
 }
