@@ -24,7 +24,8 @@ public class Init {
     }
 
     @AfterSuite
-    public void afterSute(){
+    public void afterSute() throws InterruptedException {
+        Thread.sleep(5000);
         driver.close();
     }
 
