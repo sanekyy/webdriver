@@ -1,5 +1,6 @@
 package com.spbstu.pageObjects.mantisbt;
 
+import com.spbstu.pageObjects.User;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -16,8 +17,8 @@ public class LoginPage {
     private WebElement password;
 
 
-    public void login(String username, String password){
-        this.username.sendKeys(username);
-        this.password.sendKeys(password + Keys.ENTER);
+    public void login(User user) {
+        this.username.sendKeys(user.getLogin());
+        this.password.sendKeys(user.getPassword() + Keys.ENTER);
     }
 }

@@ -6,10 +6,11 @@ import org.openqa.selenium.support.FindBy;
 /**
  * Created by ihb on 10.04.17.
  */
-public class BugActionGroupPage {
+public class BugActionGroupPage extends BasePage {
 
-    @FindBy(xpath = "//*[@id=\"action-group-div\"]/form/div/div[2]/div[2]/input")
+    @FindBy(css = ".clearfix > input")
     WebElement deleteIssuesButton;
+
 
     public void confirmRemove(){
         deleteIssuesButton.click();

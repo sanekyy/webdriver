@@ -18,4 +18,11 @@ public class MantisbtBaseTest extends BaseTest {
 
         MantisbtSite.init(driver);
     }
+
+    @Override
+    public void reopenDriver() {
+        super.reopenDriver();
+
+        MantisbtSite.init(driver);
+    }
 }

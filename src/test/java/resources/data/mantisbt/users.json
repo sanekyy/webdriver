@@ -1,0 +1,14 @@
+{
+  "administrator": {
+    "login": "administrator",
+    "password": "aQmissyy"
+  },
+  "developer": {
+    "login": "developer",
+    "password": "password_1"
+  },
+  "manager": {
+    "login": "manager",
+    "password": "password_2"
+  }
+}

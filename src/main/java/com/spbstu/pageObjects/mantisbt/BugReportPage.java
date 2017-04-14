@@ -1,5 +1,7 @@
 package com.spbstu.pageObjects.mantisbt;
 
+import com.spbstu.pageObjects.BugReport;
+import lombok.SneakyThrows;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriverException;
@@ -14,100 +16,77 @@ import java.util.Random;
 /**
  * Created by ihb on 10.04.17.
  */
-public class BugReportPage {
+public class BugReportPage extends BasePage {
 
 
     // null если тип будет Select
     @FindBy(id = "category_id")
-    WebElement categoryId;
+    private WebElement categoryId;
 
     @FindBy(id = "reproducibility")
-    WebElement reproducibility;
+    private WebElement reproducibility;
 
     @FindBy(id = "severity")
-    WebElement severity;
+    private WebElement severity;
 
     @FindBy(id = "priority")
-    WebElement priority;
+    private WebElement priority;
 
     @FindBy(id = "profile_closed_link")
-    WebElement profileClosedLink;
+    private WebElement profileClosedLink;
 
     @FindBy(id = "platform")
-    WebElement platform;
+    private WebElement platform;
 
     @FindBy(id = "os")
-    WebElement os;
+    private WebElement os;
 
     @FindBy(id = "os_build")
-    WebElement osBuild;
+    private WebElement osBuild;
 
-    @FindBy(id = "handler_id")
-    WebElement handlerId;
+    @FindBy(css = "#handler_id")
+    private WebElement assignTo;
 
     @FindBy(id = "summary")
-    WebElement summary;
+    private WebElement summary;
 
     @FindBy(id = "description")
-    WebElement description;
+    private WebElement description;
 
     @FindBy(id = "steps_to_reproduce")
-    WebElement stepsToReproduce;
+    private WebElement stepsToReproduce;
 
     @FindBy(id = "additional_info")
-    WebElement additionalInfo;
+    private WebElement additionalInfo;
 
     @FindBy(id = "tag_string")
-    WebElement tagString;
+    private WebElement tagString;
 
-    @FindBy(name = "view_state")
-    List<WebElement>  radioButtonsList;
+    @FindBy(css = ".clearfix > input")
+    private WebElement submitIssueButton;
 
-    @FindBy(xpath = "//*[@id=\"report_bug_form\"]/div/div[2]/div[2]/input")
-    WebElement submitIssueButton;
+    public void fillBugReport(BugReport bugReport) {
+        new Select(categoryId).selectByIndex(bugReport.getCategoryId());
+        new Select(reproducibility).selectByIndex(bugReport.getReproducibility());
+        new Select(severity).selectByIndex(bugReport.getSeverity());
+        new Select(priority).selectByIndex(bugReport.getPriority());
+        try{profileClosedLink.click();} catch (Exception ignored){}
+        platform.sendKeys(bugReport.getPlatform());
+        os.sendKeys(bugReport.getOs());
+        osBuild.sendKeys(bugReport.getOsBuild());
+        summary.sendKeys(bugReport.getSummary());
+        description.sendKeys(bugReport.getDescription());
+        stepsToReproduce.sendKeys(bugReport.getStepsToReproduce());
+        additionalInfo.sendKeys(bugReport.getAdditionalInfo());
+        tagString.sendKeys(bugReport.getTagString());
 
-    public void fillBugReport(String summaryValue){
-
-        Random rand = new Random(System.currentTimeMillis());
-
-        Select categoryIdS = new Select(categoryId);
-        categoryIdS.selectByIndex(
-                Math.abs(rand.nextInt())%categoryIdS.getOptions().size()
-        );
-        Select reproducibilityS = new Select(categoryId);
-        reproducibilityS.selectByIndex(
-                Math.abs(rand.nextInt())%reproducibilityS.getOptions().size()
-        );
-        Select severityS = new Select(categoryId);
-        severityS.selectByIndex(
-                Math.abs(rand.nextInt())%severityS.getOptions().size()
-        );
-        Select priorityS = new Select(categoryId);
-        priorityS.selectByIndex(
-                Math.abs(rand.nextInt())%priorityS.getOptions().size()
-        );
-        try {
-            profileClosedLink.click();
-        } catch (WebDriverException ignored){
-
-        }
-        platform.sendKeys("Intel");
-        os.sendKeys("Ubuntu");
-        osBuild.sendKeys("16.04 LTS");
-        Select handlerIdS = new Select(categoryId);
-        handlerIdS.selectByIndex(
-                Math.abs(rand.nextInt())%handlerIdS.getOptions().size()
-        );
-        summary.sendKeys(summaryValue);
-        description.sendKeys("description");
-        stepsToReproduce.sendKeys("steps_to_reproduce");
-        additionalInfo.sendKeys("additional_info");
-        tagString.sendKeys("tag_string");
-        radioButtonsList.get(Math.abs(rand.nextInt())%radioButtonsList.size())
-                .sendKeys(Keys.SPACE);
+        new Select(assignTo).getOptions().stream()
+                .filter(item -> bugReport.getAssignTo().equals(item.getText()))
+                .findFirst()
+                .get().click();
     }
 
-    public void submitIssue(){
+    public void submitIssue() {
         submitIssueButton.click();
     }
 }

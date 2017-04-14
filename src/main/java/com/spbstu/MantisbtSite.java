@@ -13,6 +13,7 @@ public class MantisbtSite {
     public static BugReportPage bugReportPage;
     public static ViewAllBugPage viewAllBugPage;
     public static BugActionGroupPage bugActionGroupPage;
+    public static View view;
 
     private static WebDriver driver;
 
@@ -22,11 +23,16 @@ public class MantisbtSite {
         bugReportPage = PageFactory.initElements(driver, BugReportPage.class);
         viewAllBugPage = PageFactory.initElements(driver, ViewAllBugPage.class);
         bugActionGroupPage = PageFactory.initElements(driver, BugActionGroupPage.class);
+        view = PageFactory.initElements(driver, View.class);
 
         MantisbtSite.driver = driver;
     }
 
     public static void open() {
         driver.navigate().to("http://localhost/mantisbt/login_page.php");
+    }
+
+    public static void openBugById(int id){
+        driver.navigate().to("http://localhost/mantisbt/view.php?id="+id);
     }
 }

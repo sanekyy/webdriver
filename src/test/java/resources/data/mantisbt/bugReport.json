@@ -1,0 +1,33 @@
+{
+  "categoryId": 0,
+
+  "categoryText": "General",
+
+  "reproducibility": 1,
+
+  "severity": 1,
+
+  "priority": 1,
+
+  "platform": "Intel",
+
+  "os": "Ubuntu",
+
+  "osBuild": "16.04 LTS",
+
+  "handlerId": 0,
+
+  "reporter": "manager",
+
+  "assignTo": "developer",
+
+  "summary": "summary",
+
+  "description": "description",
+
+  "stepsToReproduce": "stepsToReproduce",
+
+  "additionalInfo": "additionalInfo",
+
+  "tagString": "tagString"
+}
