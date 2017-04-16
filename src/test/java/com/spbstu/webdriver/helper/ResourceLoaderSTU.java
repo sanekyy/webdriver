@@ -32,7 +32,6 @@ public class ResourceLoaderSTU {
     }
 
     @SneakyThrows
-
     private static void loadBugReport() {
         String rawData = getRawData(DATA_BUG_REPORT_JSON);
         Type type = new TypeToken<BugReport>(){}.getType();

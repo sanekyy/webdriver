@@ -31,9 +31,14 @@ public class MantisbtBugReportTest extends MantisbtBaseTest {
         MantisbtSite.bugReportPage.fillBugReport(bugReport);
         MantisbtSite.bugReportPage.submitIssue();
         Assert.assertTrue(MantisbtSite.viewAllBugPage.isBugReportPresented(bugReport));
+        // You should get certain id instead of all of them(create issue with unique summary, for example). Just imagine if you have
+        // a lot of issue ~100 or 1k.
         List<Integer> ids = MantisbtSite.viewAllBugPage.getBugReportsId(bugReport);
 
         // вынести в отдельный метод? как назвать и где его разместить?
+        // MantisbtSite.viewAllBugPage.openIssueByID(int certainID)
+        // boolean isPresented = MantisbtSite.view.isBugReportPresented(bugReport);
+        // Assert.assertTrue(isPresented);
         boolean isBugReportPresented = false;
         for(Integer id : ids){
             MantisbtSite.openBugById(id);

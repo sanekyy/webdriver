@@ -35,17 +35,13 @@ public class View extends BasePage {
 
 
     public boolean isBugReportPresented(BugReport bugReport) {
-        try {
-            return bugReport.getPlatform().equals(platform.getText())
-                    && bugReport.getOs().equals(os.getText())
-                    && bugReport.getOsBuild().equals(osBuild.getText())
-                    && bugReport.getDescription().equals(description.getText())
-                    && bugReport.getStepsToReproduce().equals(stepsToReproduce.getText())
-                    && bugReport.getAdditionalInfo().equals(additionalInfo.getText())
-                    && bugReport.getReporter().equals(reporter.getText())
-                    && bugReport.getAssignTo().equals(assignTo.getText());
-        } catch (Exception e){
-            return false;
-        }
+        return bugReport.getPlatform().equals(platform.getText())
+                && bugReport.getOs().equals(os.getText())
+                && bugReport.getOsBuild().equals(osBuild.getText())
+                && bugReport.getDescription().equals(description.getText())
+                && bugReport.getStepsToReproduce().equals(stepsToReproduce.getText())
+                && bugReport.getAdditionalInfo().equals(additionalInfo.getText())
+                && bugReport.getReporter().equals(reporter.getText())
+                && bugReport.getAssignTo().equals(assignTo.getText());
     }
 }
