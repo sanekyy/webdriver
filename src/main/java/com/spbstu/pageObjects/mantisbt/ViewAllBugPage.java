@@ -25,20 +25,64 @@ public class ViewAllBugPage extends BasePage {
     @FindBy(xpath = "//*[@id=\"buglist\"]/tbody/tr")
     private List<WebElement> rows;
 
+    @FindBy(css = "tr:nth-child(1) > td.column-category > div")
+    private WebElement categoryText;
+
+    @FindBy(id = "hide_status_filter")
+    private WebElement hideStatusFilterText;
+
+    @FindBy(css = "#hide_status_filter_target > select")
+    private WebElement hideStatusFilter;
+
+    @FindBy(css = "input.btn.btn-primary.btn-sm.btn-white.btn-round.no-float")
+    private WebElement applyFilterButton;
+
+
     public boolean isBugReportPresented(BugReport bugReport) {
         return rows.stream()
-                .anyMatch(row -> row.findElement(By.xpath("//*[@id=\"buglist\"]/tbody/tr[1]/td[9]/div/a"))
-                        .getText().equals(bugReport.getAssignTo())
-                        && row.findElement(By.cssSelector("td.column-summary")).getText().equals(bugReport.getSummary())
-                        && row.findElement(By.cssSelector("td.column-category")).getText().equals(bugReport.getCategoryText()));
+                .anyMatch(row -> {
+                    if (!row.findElement(By.cssSelector("td.column-category > div")).getText().equals(bugReport.getCategoryText())
+                            || !row.findElement(By.cssSelector("td.column-summary")).getText().equals(bugReport.getSummary()))
+                        return false;
+
+                    if (bugReport.getSeverityText().equals("block") && !bugReport.getStatus().equals("closed")
+                            && !row.findElement(By.cssSelector("td.column-severity > span")).getText().equals(bugReport.getSeverityText()))
+                        return false;
+                    else if (!row.findElement(By.cssSelector("td.column-severity")).getText().equals(bugReport.getSeverityText()))
+                        return false;
+
+                    if (bugReport.getStatus().equals("open")
+                            && (!row.findElement(By.cssSelector("td.column-status > div > span")).getText().equals("assigned")
+                            || !row.findElement(By.cssSelector("td.column-status > div > a")).getText().equals(bugReport.getAssignTo())))
+                        return false;
+                    else if (bugReport.getStatus().equals("resolved")
+                            && (!row.findElement(By.cssSelector("td.column-status > div > span")).getText().equals("resolved")
+                            || !row.findElement(By.cssSelector("td.column-status > div > a")).getText().equals(bugReport.getAssignTo())))
+                        return false;
+
+                    else if (bugReport.getStatus().equals("closed")
+                            && (!row.findElement(By.cssSelector("td.column-status > div > span")).getText().equals("closed")
+                            || !row.findElement(By.cssSelector("td.column-status > div > a")).getText().equals(bugReport.getAssignTo())))
+                        return false;
+
+                    return true;
+
+                });
     }
 
-    public List<Integer> getBugReportsId(BugReport bugReport){
+    public List<Integer> getBugReportIds(BugReport bugReport) {
         return rows.stream()
                 .filter(row -> row.findElement(By.xpath("//*[@id=\"buglist\"]/tbody/tr[1]/td[9]/div/a"))
                         .getText().equals(bugReport.getAssignTo())
-                        && row.findElement(By.cssSelector("td.column-summary")).getText().equals(bugReport.getSummary())
-                        && row.findElement(By.cssSelector("td.column-category")).getText().equals(bugReport.getCategoryText()))
+                        && row.findElement(By.cssSelector("td.column-category > div")).getText().equals(bugReport.getCategoryText())
+                        && row.findElement(By.cssSelector("td.column-status > div > a")).getText().equals(bugReport.getAssignTo())
+                        && row.findElement(By.cssSelector("td.column-summary")).getText().equals(bugReport.getSummary()))
+                .filter(row -> {
+                    if (bugReport.getSeverityText().equals("block") && !bugReport.getStatus().equals("closed"))
+                        return row.findElement(By.cssSelector("td.column-severity > span")).getText().equals(bugReport.getSeverityText());
+                    else
+                        return row.findElement(By.cssSelector("td.column-severity")).getText().equals(bugReport.getSeverityText());
+                })
                 .map(row -> Integer.valueOf(row.findElement(By.cssSelector("td.column-id > a")).getText()))
                 .collect(Collectors.toList());
     }
@@ -53,5 +97,11 @@ public class ViewAllBugPage extends BasePage {
                 .click();
         new Select(action).selectByIndex(DELETE_ACTION_INDEX);
         okButton.click();
+    }
+
+    public void setFilterHideStatusToNone() {
+        hideStatusFilterText.click();
+        new Select(hideStatusFilter).selectByIndex(0);
+        applyFilterButton.click();
     }
 }

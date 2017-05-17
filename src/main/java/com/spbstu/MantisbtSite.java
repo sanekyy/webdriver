@@ -14,6 +14,7 @@ public class MantisbtSite {
     public static ViewAllBugPage viewAllBugPage;
     public static BugActionGroupPage bugActionGroupPage;
     public static View view;
+    public static BugChangeStatusPage bugChangeStatusPage;
 
     private static WebDriver driver;
 
@@ -24,6 +25,7 @@ public class MantisbtSite {
         viewAllBugPage = PageFactory.initElements(driver, ViewAllBugPage.class);
         bugActionGroupPage = PageFactory.initElements(driver, BugActionGroupPage.class);
         view = PageFactory.initElements(driver, View.class);
+        bugChangeStatusPage = PageFactory.initElements(driver, BugChangeStatusPage.class);
 
         MantisbtSite.driver = driver;
     }

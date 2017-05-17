@@ -3,13 +3,19 @@
 
   "categoryText": "General",
 
-  "reproducibility": 1,
+  "reproducibilityId": 0,
 
-  "severity": 1,
+  "reproducibilityText": "always",
 
-  "priority": 1,
+  "severityId": 7,
 
-  "platform": "Intel",
+  "severityText": "block",
+
+  "priorityId": 5,
+
+  "priorityText": "immediate",
+
+  "platform": "[Intel,AMD]",
 
   "os": "Ubuntu",
 
@@ -17,17 +23,17 @@
 
   "handlerId": 0,
 
-  "reporter": "manager",
+  "reporter": "tester1",
 
-  "assignTo": "developer",
+  "assignTo": "dev1",
 
-  "summary": "summary",
+  "summary": "theme [0-9]{10,20}",
 
-  "description": "description",
+  "description": "description [0-9]{10,20}",
 
-  "stepsToReproduce": "stepsToReproduce",
+  "stepsToReproduce": "reproduce steps [0-9]{10,20}",
 
-  "additionalInfo": "additionalInfo",
+  "additionalInfo": "additional information [0-9]{10,20}",
 
-  "tagString": "tagString"
+  "tagString": "[0-9]{10,20}"
 }

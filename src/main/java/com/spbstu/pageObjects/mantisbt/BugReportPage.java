@@ -1,17 +1,9 @@
 package com.spbstu.pageObjects.mantisbt;
 
 import com.spbstu.pageObjects.BugReport;
-import lombok.SneakyThrows;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
-
-import java.util.List;
-import java.util.Random;
 
 /**
  * Created by ihb on 10.04.17.
@@ -21,7 +13,7 @@ public class BugReportPage extends BasePage {
 
     // null если тип будет Select
     @FindBy(id = "category_id")
-    private WebElement categoryId;
+    private WebElement category;
 
     @FindBy(id = "reproducibility")
     private WebElement reproducibility;
@@ -66,24 +58,27 @@ public class BugReportPage extends BasePage {
     private WebElement submitIssueButton;
 
     public void fillBugReport(BugReport bugReport) {
-        new Select(categoryId).selectByIndex(bugReport.getCategoryId());
-        new Select(reproducibility).selectByIndex(bugReport.getReproducibility());
-        new Select(severity).selectByIndex(bugReport.getSeverity());
-        new Select(priority).selectByIndex(bugReport.getPriority());
+        new Select(category).selectByIndex(bugReport.getCategoryId());
+        // TODO: 17.05.17 visible text
+        new Select(reproducibility).selectByIndex(bugReport.getReproducibilityId());
+        new Select(severity).selectByIndex(bugReport.getSeverityId());
+        new Select(priority).selectByIndex(bugReport.getPriorityId());
         try{profileClosedLink.click();} catch (Exception ignored){}
         platform.sendKeys(bugReport.getPlatform());
         os.sendKeys(bugReport.getOs());
         osBuild.sendKeys(bugReport.getOsBuild());
+        bugReport.setSummary(bugReport.getSummary());
         summary.sendKeys(bugReport.getSummary());
         description.sendKeys(bugReport.getDescription());
         stepsToReproduce.sendKeys(bugReport.getStepsToReproduce());
         additionalInfo.sendKeys(bugReport.getAdditionalInfo());
         tagString.sendKeys(bugReport.getTagString());
-
         new Select(assignTo).getOptions().stream()
                 .filter(item -> bugReport.getAssignTo().equals(item.getText()))
                 .findFirst()
                 .get().click();
+
+        bugReport.setStatus("open");
     }
 
     public void submitIssue() {

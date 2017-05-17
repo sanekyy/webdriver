@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class MantisbtBugReportTest extends MantisbtBaseTest {
 
-    BugReport bugReport;
+    private BugReport bugReport;
 
     @Test
     public void bugReportTest(){
@@ -30,20 +30,8 @@ public class MantisbtBugReportTest extends MantisbtBaseTest {
         MantisbtSite.myViewPage.openBugReportPage();
         MantisbtSite.bugReportPage.fillBugReport(bugReport);
         MantisbtSite.bugReportPage.submitIssue();
-        Assert.assertTrue(MantisbtSite.viewAllBugPage.isBugReportPresented(bugReport));
-        List<Integer> ids = MantisbtSite.viewAllBugPage.getBugReportsId(bugReport);
 
-        // вынести в отдельный метод? как назвать и где его разместить?
-        boolean isBugReportPresented = false;
-        for(Integer id : ids){
-            MantisbtSite.openBugById(id);
-            isBugReportPresented = MantisbtSite.view.isBugReportPresented(bugReport);
-            if(isBugReportPresented) {
-                bugReport.setId(id);
-                break;
-            }
-        }
-        Assert.assertTrue(isBugReportPresented);
+        Assert.assertTrue(findBugReport(bugReport));
     }
 
     @AfterMethod
@@ -56,12 +44,18 @@ public class MantisbtBugReportTest extends MantisbtBaseTest {
         MantisbtSite.loginPage.login(admin);
 
         MantisbtSite.myViewPage.openViewAllBugPage();
+        MantisbtSite.viewAllBugPage.setFilterHideStatusToNone();
         MantisbtSite.viewAllBugPage.deleteBugReportById(bugReport.getId());
         MantisbtSite.bugActionGroupPage.confirmRemove();
+
     }
 
     @Test
     public void bugReportFromReporterToDeveloperTest(){
+        // form by regexp
+
+
+
         MantisbtSite.open();
 
         bugReport = ResourceLoaderSTU.getBugReport();
@@ -80,17 +74,80 @@ public class MantisbtBugReportTest extends MantisbtBaseTest {
         User assingTo = ResourceLoaderSTU.getMantisbtUser(bugReport.getAssignTo());
         MantisbtSite.loginPage.login(assingTo);
         MantisbtSite.myViewPage.openViewAllBugPage();
+
+        Assert.assertTrue(findBugReport(bugReport));
+    }
+
+    @Test
+    public void mainTest(){
+        MantisbtSite.open();
+
+        bugReport = ResourceLoaderSTU.getBugReport();
+        User reporter = ResourceLoaderSTU.getMantisbtUser(bugReport.getReporter());
+
+        MantisbtSite.loginPage.login(reporter);
+        // не очевидно, что страница сменится на другую, т.е. на myViewPage
+        MantisbtSite.myViewPage.openBugReportPage();
+        MantisbtSite.bugReportPage.fillBugReport(bugReport);
+        MantisbtSite.bugReportPage.submitIssue();
+        MantisbtSite.viewAllBugPage.openViewAllBugPage();
         Assert.assertTrue(MantisbtSite.viewAllBugPage.isBugReportPresented(bugReport));
-        List<Integer> ids = MantisbtSite.viewAllBugPage.getBugReportsId(bugReport);
-        boolean isBugReportPresented = false;
+
+
+        reopenDriver();
+        MantisbtSite.open();
+
+        User assignTo = ResourceLoaderSTU.getMantisbtUser(bugReport.getAssignTo());
+        MantisbtSite.loginPage.login(assignTo);
+        MantisbtSite.myViewPage.openViewAllBugPage();
+
+        Assert.assertTrue(findBugReport(bugReport));
+
+        MantisbtSite.openBugById(bugReport.getId());
+
+        MantisbtSite.view.changeStutusToResolved();
+        MantisbtSite.bugChangeStatusPage.resolveIssue();
+        bugReport.setStatus("resolved");
+
+        reopenDriver();
+        MantisbtSite.open();
+
+        User lead1 = ResourceLoaderSTU.getMantisbtUser("lead1");
+        MantisbtSite.loginPage.login(lead1);
+
+        MantisbtSite.myViewPage.openViewAllBugPage();
+
+        Assert.assertTrue(findBugReport(bugReport));
+
+        MantisbtSite.openBugById(bugReport.getId());
+        MantisbtSite.view.changeStutusToClosed();
+        MantisbtSite.bugChangeStatusPage.closeIssue();
+        bugReport.setStatus("closed");
+        bugReport.setAssignTo(lead1.getLogin());
+
+        MantisbtSite.bugChangeStatusPage.openViewAllBugPage();
+        MantisbtSite.viewAllBugPage.setFilterHideStatusToNone();
+
+        Assert.assertTrue(findBugReport(bugReport));
+
+    }
+
+
+    private boolean findBugReport(BugReport bugReport){
+        if(!MantisbtSite.viewAllBugPage.isBugReportPresented(bugReport))
+            return false;
+
+
+        List<Integer> ids = MantisbtSite.viewAllBugPage.getBugReportIds(bugReport);
+        boolean isPresented = false;
         for(Integer id : ids){
             MantisbtSite.openBugById(id);
-            isBugReportPresented = MantisbtSite.view.isBugReportPresented(bugReport);
-            if(isBugReportPresented) {
+            isPresented = MantisbtSite.view.isBugReportPresented(bugReport);
+            if(isPresented) {
                 bugReport.setId(id);
                 break;
             }
         }
-        Assert.assertTrue(isBugReportPresented);
+        return isPresented;
     }
 }

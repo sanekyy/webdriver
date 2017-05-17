@@ -3,12 +3,16 @@
     "login": "administrator",
     "password": "aQmissyy"
   },
-  "developer": {
-    "login": "developer",
+  "dev1": {
+    "login": "dev1",
     "password": "password_1"
   },
-  "manager": {
-    "login": "manager",
+  "tester1": {
+    "login": "tester1",
     "password": "password_2"
+  },
+  "lead1": {
+    "login": "lead1",
+    "password": "aQmissyy"
   }
 }

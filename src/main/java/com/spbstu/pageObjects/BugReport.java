@@ -1,5 +1,6 @@
 package com.spbstu.pageObjects;
 
+import com.mifmif.common.regex.Generex;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,11 +22,17 @@ public class BugReport {
 
     String categoryText;
 
-    int reproducibility;
+    int reproducibilityId;
 
-    int severity;
+    String reproducibilityText;
 
-    int priority;
+    int severityId;
+
+    String severityText;
+
+    int priorityId;
+
+    String priorityText;
 
     String platform;
 
@@ -49,4 +56,13 @@ public class BugReport {
 
     String tagString;
 
+    String status;
+
+    public void initFields() {
+        summary = new Generex(summary).random();
+        description = new Generex(description).random();
+        stepsToReproduce = new Generex(stepsToReproduce).random();
+        additionalInfo = new Generex(additionalInfo).random();
+        tagString = new Generex(tagString).random();
+    }
 }

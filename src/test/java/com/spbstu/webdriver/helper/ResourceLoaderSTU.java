@@ -37,6 +37,7 @@ public class ResourceLoaderSTU {
         String rawData = getRawData(DATA_BUG_REPORT_JSON);
         Type type = new TypeToken<BugReport>(){}.getType();
         bugReport = new Gson().fromJson(rawData, type);
+        bugReport.initFields();
     }
 
     @SneakyThrows
