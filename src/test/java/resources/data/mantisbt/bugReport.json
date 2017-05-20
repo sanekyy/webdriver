@@ -1,19 +1,13 @@
 {
-  "categoryId": 0,
-
   "categoryText": "General",
 
-  "reproducibilityId": 0,
+  "categorySelectorText": "[All Projects] General",
 
-  "reproducibilityText": "always",
+  "reproducibility": "always",
 
-  "severityId": 7,
+  "severity": "block",
 
-  "severityText": "block",
-
-  "priorityId": 5,
-
-  "priorityText": "immediate",
+  "priority": "immediate",
 
   "platform": "[Intel,AMD]",
 

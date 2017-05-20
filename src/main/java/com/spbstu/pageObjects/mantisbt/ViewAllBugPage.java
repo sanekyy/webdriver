@@ -41,14 +41,14 @@ public class ViewAllBugPage extends BasePage {
     public boolean isBugReportPresented(BugReport bugReport) {
         return rows.stream()
                 .anyMatch(row -> {
-                    if (!row.findElement(By.cssSelector("td.column-category > div")).getText().equals(bugReport.getCategoryText())
+                    if (!row.findElement(By.cssSelector("td.column-category > div")).getText().contains(bugReport.getCategoryText())
                             || !row.findElement(By.cssSelector("td.column-summary")).getText().equals(bugReport.getSummary()))
                         return false;
 
-                    if (bugReport.getSeverityText().equals("block") && !bugReport.getStatus().equals("closed")
-                            && !row.findElement(By.cssSelector("td.column-severity > span")).getText().equals(bugReport.getSeverityText()))
+                    if (bugReport.getSeverity().equals("block") && !bugReport.getStatus().equals("closed")
+                            && !row.findElement(By.cssSelector("td.column-severity > span")).getText().equals(bugReport.getSeverity()))
                         return false;
-                    else if (!row.findElement(By.cssSelector("td.column-severity")).getText().equals(bugReport.getSeverityText()))
+                    else if (!row.findElement(By.cssSelector("td.column-severity")).getText().equals(bugReport.getSeverity()))
                         return false;
 
                     if (bugReport.getStatus().equals("open")
@@ -78,10 +78,10 @@ public class ViewAllBugPage extends BasePage {
                         && row.findElement(By.cssSelector("td.column-status > div > a")).getText().equals(bugReport.getAssignTo())
                         && row.findElement(By.cssSelector("td.column-summary")).getText().equals(bugReport.getSummary()))
                 .filter(row -> {
-                    if (bugReport.getSeverityText().equals("block") && !bugReport.getStatus().equals("closed"))
-                        return row.findElement(By.cssSelector("td.column-severity > span")).getText().equals(bugReport.getSeverityText());
+                    if (bugReport.getSeverity().equals("block") && !bugReport.getStatus().equals("closed"))
+                        return row.findElement(By.cssSelector("td.column-severity > span")).getText().equals(bugReport.getSeverity());
                     else
-                        return row.findElement(By.cssSelector("td.column-severity")).getText().equals(bugReport.getSeverityText());
+                        return row.findElement(By.cssSelector("td.column-severity")).getText().equals(bugReport.getSeverity());
                 })
                 .map(row -> Integer.valueOf(row.findElement(By.cssSelector("td.column-id > a")).getText()))
                 .collect(Collectors.toList());

@@ -18,21 +18,15 @@ public class BugReport {
 
     int id;
 
-    int categoryId;
-
     String categoryText;
 
-    int reproducibilityId;
+    String categorySelectorText;
 
-    String reproducibilityText;
+    String reproducibility;
 
-    int severityId;
+    String severity;
 
-    String severityText;
-
-    int priorityId;
-
-    String priorityText;
+    String priority;
 
     String platform;
 

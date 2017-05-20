@@ -58,11 +58,12 @@ public class BugReportPage extends BasePage {
     private WebElement submitIssueButton;
 
     public void fillBugReport(BugReport bugReport) {
-        new Select(category).selectByIndex(bugReport.getCategoryId());
+        new Select(category)
+                .selectByVisibleText(bugReport.getCategorySelectorText());
         // TODO: 17.05.17 visible text
-        new Select(reproducibility).selectByIndex(bugReport.getReproducibilityId());
-        new Select(severity).selectByIndex(bugReport.getSeverityId());
-        new Select(priority).selectByIndex(bugReport.getPriorityId());
+        new Select(reproducibility).selectByVisibleText(bugReport.getReproducibility());
+        new Select(severity).selectByVisibleText(bugReport.getSeverity());
+        new Select(priority).selectByVisibleText(bugReport.getPriority());
         try{profileClosedLink.click();} catch (Exception ignored){}
         platform.sendKeys(bugReport.getPlatform());
         os.sendKeys(bugReport.getOs());

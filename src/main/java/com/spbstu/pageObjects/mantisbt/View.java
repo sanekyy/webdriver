@@ -68,9 +68,9 @@ public class View extends BasePage {
         try {
             if(bugReport.getReporter().equals(reporter.getText())
                     && assignTo.getText().equals(bugReport.getAssignTo())
-                    && reproducibility.getText().equals(bugReport.getReproducibilityText())
-                    && severity.getText().equals(bugReport.getSeverityText())
-                    && priority.getText().equals(bugReport.getPriorityText())
+                    && reproducibility.getText().equals(bugReport.getReproducibility())
+                    && severity.getText().equals(bugReport.getSeverity())
+                    && priority.getText().equals(bugReport.getPriority())
                     && platform.getText().equals(bugReport.getPlatform())
                     && os.getText().equals(bugReport.getOs())
                     && osBuild.getText().equals(bugReport.getOsBuild())

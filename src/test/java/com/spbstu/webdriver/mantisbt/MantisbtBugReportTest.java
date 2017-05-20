@@ -8,6 +8,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -19,7 +20,7 @@ public class MantisbtBugReportTest extends MantisbtBaseTest {
     private BugReport bugReport;
 
     @Test
-    public void bugReportTest(){
+    public void bugReportTest() {
         MantisbtSite.open();
 
         bugReport = ResourceLoaderSTU.getBugReport();
@@ -35,7 +36,7 @@ public class MantisbtBugReportTest extends MantisbtBaseTest {
     }
 
     @AfterMethod
-    public void deleteIssue(){
+    public void deleteIssue() {
         reopenDriver();
 
         MantisbtSite.open();
@@ -47,13 +48,12 @@ public class MantisbtBugReportTest extends MantisbtBaseTest {
         MantisbtSite.viewAllBugPage.setFilterHideStatusToNone();
         MantisbtSite.viewAllBugPage.deleteBugReportById(bugReport.getId());
         MantisbtSite.bugActionGroupPage.confirmRemove();
-
+        bugReport.setId(0);
     }
 
     @Test
-    public void bugReportFromReporterToDeveloperTest(){
+    public void bugReportFromReporterToDeveloperTest() {
         // form by regexp
-
 
 
         MantisbtSite.open();
@@ -79,7 +79,7 @@ public class MantisbtBugReportTest extends MantisbtBaseTest {
     }
 
     @Test
-    public void mainTest(){
+    public void mainTest() {
         MantisbtSite.open();
 
         bugReport = ResourceLoaderSTU.getBugReport();
@@ -133,17 +133,22 @@ public class MantisbtBugReportTest extends MantisbtBaseTest {
     }
 
 
-    private boolean findBugReport(BugReport bugReport){
-        if(!MantisbtSite.viewAllBugPage.isBugReportPresented(bugReport))
+    private boolean findBugReport(BugReport bugReport) {
+        if (!MantisbtSite.viewAllBugPage.isBugReportPresented(bugReport))
             return false;
 
-
-        List<Integer> ids = MantisbtSite.viewAllBugPage.getBugReportIds(bugReport);
+        List<Integer> ids;
+        if (bugReport.getId() == 0) {
+            ids = MantisbtSite.viewAllBugPage.getBugReportIds(bugReport);
+        } else {
+            ids = new ArrayList<>();
+            ids.add(bugReport.getId());
+        }
         boolean isPresented = false;
-        for(Integer id : ids){
+        for (Integer id : ids) {
             MantisbtSite.openBugById(id);
             isPresented = MantisbtSite.view.isBugReportPresented(bugReport);
-            if(isPresented) {
+            if (isPresented) {
                 bugReport.setId(id);
                 break;
             }
