@@ -99,13 +99,8 @@ public class View extends BasePage {
         }
     }
 
-    public void changeStutusToResolved(){
-        new Select(changeStatus).selectByIndex(4);
-        changeStatusButton.click();
-    }
-
-    public void changeStutusToClosed(){
-        new Select(changeStatus).selectByIndex(5);
+    public void changeStatus(String newStatus){
+        new Select(changeStatus).selectByVisibleText(newStatus);
         changeStatusButton.click();
     }
 }

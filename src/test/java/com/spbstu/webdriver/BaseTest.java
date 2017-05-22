@@ -1,6 +1,8 @@
 package com.spbstu.webdriver;
 
 import com.spbstu.EpamSite;
+import org.junit.After;
+import org.junit.Before;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -8,6 +10,7 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 
 import java.lang.reflect.Method;
 import java.util.concurrent.TimeUnit;
@@ -20,22 +23,22 @@ public class BaseTest {
     protected WebDriver driver;
 
     @BeforeMethod
-    public void beforeMethod(Method method) {
+    public void before() {
         init();
     }
 
     @AfterMethod
-    public void afterMethod(ITestResult testResult) throws InterruptedException {
-        System.out.println(String.format("Test method %s has been finished successfully: %s", testResult.getName(), testResult.isSuccess()));
+    public void after() throws InterruptedException {
         driver.quit();
     }
 
     @AfterTest
     public void afterTest(){
-        driver.quit();
+        if(driver != null)
+            driver.quit();
     }
 
-    private void init(){
+    protected void init(){
         ChromeOptions options = new ChromeOptions();
         options.addArguments("start-maximized");
         options.addArguments("--lang=en-GB"); // for what?

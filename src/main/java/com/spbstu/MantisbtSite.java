@@ -1,5 +1,6 @@
 package com.spbstu;
 
+import com.spbstu.pageObjects.User;
 import com.spbstu.pageObjects.mantisbt.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
@@ -8,6 +9,10 @@ import org.openqa.selenium.support.PageFactory;
  * Created by ihb on 10.04.17.
  */
 public class MantisbtSite {
+
+    public static User currUser;
+    public static BasePage currPage;
+
     public static LoginPage loginPage;
     public static MyViewPage myViewPage;
     public static BugReportPage bugReportPage;
@@ -36,5 +41,6 @@ public class MantisbtSite {
 
     public static void openBugById(int id){
         driver.navigate().to("http://localhost/mantisbt/view.php?id="+id);
+        currPage = view;
     }
 }

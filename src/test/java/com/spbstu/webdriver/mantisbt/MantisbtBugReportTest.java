@@ -6,10 +6,8 @@ import com.spbstu.pageObjects.User;
 import com.spbstu.webdriver.helper.ResourceLoaderSTU;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -18,22 +16,6 @@ import java.util.List;
 public class MantisbtBugReportTest extends MantisbtBaseTest {
 
     private BugReport bugReport;
-
-    @Test
-    public void bugReportTest() {
-        MantisbtSite.open();
-
-        bugReport = ResourceLoaderSTU.getBugReport();
-        User reporter = ResourceLoaderSTU.getMantisbtUser(bugReport.getReporter());
-
-        MantisbtSite.loginPage.login(reporter);
-        // не очевидно, что страница сменится на другую, т.е. на myViewPage
-        MantisbtSite.myViewPage.openBugReportPage();
-        MantisbtSite.bugReportPage.fillBugReport(bugReport);
-        MantisbtSite.bugReportPage.submitIssue();
-
-        Assert.assertTrue(findBugReport(bugReport));
-    }
 
     @AfterMethod
     public void deleteIssue() {
@@ -45,17 +27,29 @@ public class MantisbtBugReportTest extends MantisbtBaseTest {
         MantisbtSite.loginPage.login(admin);
 
         MantisbtSite.myViewPage.openViewAllBugPage();
-        MantisbtSite.viewAllBugPage.setFilterHideStatusToNone();
+        MantisbtSite.viewAllBugPage.setFilterHideStatus("[none]");
         MantisbtSite.viewAllBugPage.deleteBugReportById(bugReport.getId());
         MantisbtSite.bugActionGroupPage.confirmRemove();
         bugReport.setId(0);
     }
 
     @Test
+    public void bugReportTest() {
+        MantisbtSite.open();
+
+        bugReport = ResourceLoaderSTU.getBugReport();
+        User reporter = ResourceLoaderSTU.getMantisbtUser(bugReport.getReporter());
+
+        MantisbtSite.loginPage.login(reporter);
+        MantisbtSite.myViewPage.openBugReportPage();
+        MantisbtSite.bugReportPage.fillBugReport(bugReport);
+        MantisbtSite.bugReportPage.submitIssue();
+        MantisbtSite.currPage.openViewAllBugPage();
+        Assert.assertTrue(findBugReport(bugReport));
+    }
+
+    @Test
     public void bugReportFromReporterToDeveloperTest() {
-        // form by regexp
-
-
         MantisbtSite.open();
 
         bugReport = ResourceLoaderSTU.getBugReport();
@@ -105,8 +99,8 @@ public class MantisbtBugReportTest extends MantisbtBaseTest {
 
         MantisbtSite.openBugById(bugReport.getId());
 
-        MantisbtSite.view.changeStutusToResolved();
-        MantisbtSite.bugChangeStatusPage.resolveIssue();
+        MantisbtSite.view.changeStatus("resolved");
+        MantisbtSite.bugChangeStatusPage.confirm();
         bugReport.setStatus("resolved");
 
         reopenDriver();
@@ -120,39 +114,16 @@ public class MantisbtBugReportTest extends MantisbtBaseTest {
         Assert.assertTrue(findBugReport(bugReport));
 
         MantisbtSite.openBugById(bugReport.getId());
-        MantisbtSite.view.changeStutusToClosed();
-        MantisbtSite.bugChangeStatusPage.closeIssue();
+
+        MantisbtSite.view.changeStatus("closed");
+        MantisbtSite.bugChangeStatusPage.confirm();
         bugReport.setStatus("closed");
         bugReport.setAssignTo(lead1.getLogin());
 
         MantisbtSite.bugChangeStatusPage.openViewAllBugPage();
-        MantisbtSite.viewAllBugPage.setFilterHideStatusToNone();
+        MantisbtSite.viewAllBugPage.setFilterHideStatus("[none]");
 
         Assert.assertTrue(findBugReport(bugReport));
 
-    }
-
-
-    private boolean findBugReport(BugReport bugReport) {
-        if (!MantisbtSite.viewAllBugPage.isBugReportPresented(bugReport))
-            return false;
-
-        List<Integer> ids;
-        if (bugReport.getId() == 0) {
-            ids = MantisbtSite.viewAllBugPage.getBugReportIds(bugReport);
-        } else {
-            ids = new ArrayList<>();
-            ids.add(bugReport.getId());
-        }
-        boolean isPresented = false;
-        for (Integer id : ids) {
-            MantisbtSite.openBugById(id);
-            isPresented = MantisbtSite.view.isBugReportPresented(bugReport);
-            if (isPresented) {
-                bugReport.setId(id);
-                break;
-            }
-        }
-        return isPresented;
     }
 }

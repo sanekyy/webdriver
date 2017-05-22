@@ -99,9 +99,9 @@ public class ViewAllBugPage extends BasePage {
         okButton.click();
     }
 
-    public void setFilterHideStatusToNone() {
+    public void setFilterHideStatus(String newStatus) {
         hideStatusFilterText.click();
-        new Select(hideStatusFilter).selectByIndex(0);
+        new Select(hideStatusFilter).selectByVisibleText(newStatus);
         applyFilterButton.click();
     }
 }

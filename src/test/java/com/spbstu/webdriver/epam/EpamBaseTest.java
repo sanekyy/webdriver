@@ -2,6 +2,7 @@ package com.spbstu.webdriver.epam;
 
 import com.spbstu.EpamSite;
 import com.spbstu.webdriver.BaseTest;
+import org.junit.Before;
 import org.testng.annotations.BeforeMethod;
 
 import java.lang.reflect.Method;
@@ -11,10 +12,10 @@ import java.lang.reflect.Method;
  */
 public class EpamBaseTest extends BaseTest{
 
-    @BeforeMethod
+    @Before
     @Override
-    public void beforeMethod(Method method) {
-        super.beforeMethod(method);
+    public void before() {
+        super.before();
 
         EpamSite.init(driver);
     }

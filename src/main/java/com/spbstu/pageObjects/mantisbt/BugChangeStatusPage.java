@@ -1,5 +1,6 @@
 package com.spbstu.pageObjects.mantisbt;
 
+import com.spbstu.MantisbtSite;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
@@ -15,12 +16,8 @@ public class BugChangeStatusPage extends BasePage {
     @FindBy(css = "tr:nth-child(3) > td > select")
     WebElement assignedTo;
 
-    public void resolveIssue(){
-        changeIssueStatusButton.click();
-    }
-
-    public void closeIssue() {
-        new Select(assignedTo).selectByVisibleText("lead1");
+    public void confirm(){
+        new Select(assignedTo).selectByVisibleText(MantisbtSite.currUser.getLogin());
         changeIssueStatusButton.click();
     }
 }

@@ -1,5 +1,6 @@
 package com.spbstu.pageObjects.mantisbt;
 
+import com.spbstu.MantisbtSite;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -16,9 +17,11 @@ public class BasePage {
 
     public void openBugReportPage(){
         reportIssueButton.click();
+        MantisbtSite.currPage = this;
     }
 
     public void openViewAllBugPage(){
         viewIssueButton.click();
+        MantisbtSite.currPage = this;
     }
 }

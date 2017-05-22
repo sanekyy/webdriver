@@ -1,5 +1,6 @@
 package com.spbstu.pageObjects.mantisbt;
 
+import com.spbstu.MantisbtSite;
 import com.spbstu.pageObjects.User;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -20,5 +21,8 @@ public class LoginPage {
     public void login(User user) {
         this.username.sendKeys(user.getLogin());
         this.password.sendKeys(user.getPassword() + Keys.ENTER);
+
+        MantisbtSite.currUser = user;
+        MantisbtSite.currPage = MantisbtSite.myViewPage;
     }
 }
