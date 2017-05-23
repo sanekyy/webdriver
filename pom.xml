@@ -15,6 +15,11 @@
     </properties>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/test/java/resources</directory>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
