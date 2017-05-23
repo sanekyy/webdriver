@@ -34,7 +34,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <includes>
-                        /stepDefs/Runner.java
+                         **/*Runner.java
                     </includes>
                     <systemPropertyVariables>
                         <webdriver.chrome.driver>/home/ihb/Documents/Testing/chromedriver</webdriver.chrome.driver>
