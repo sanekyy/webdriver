@@ -8,7 +8,7 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         features = "src/test/java/resources/data/mantisbt/features",
         glue = "com.spbstu.webdriver.stepDefs",
-        format = "json:target/reports/mainReport.json"
+        format = "json:target/reports/report.json"
 )
 public class Runner extends BaseTest {
 
