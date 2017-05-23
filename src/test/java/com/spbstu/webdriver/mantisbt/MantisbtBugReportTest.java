@@ -6,7 +6,6 @@ import com.spbstu.pageObjects.User;
 import com.spbstu.webdriver.helper.ResourceLoaderSTU;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.Test;
 
 

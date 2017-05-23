@@ -15,11 +15,7 @@
     </properties>
 
     <build>
-        <resources>
-            <resource>
-                <directory>src/test/java/resources</directory>
-            </resource>
-        </resources>
+        
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -34,7 +30,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <includes>
-                         **/*Runner.java
+                        **/*Runner.java
                     </includes>
                     <systemPropertyVariables>
                         <webdriver.chrome.driver>/home/ihb/Documents/Testing/chromedriver</webdriver.chrome.driver>

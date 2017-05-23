@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.Select;
  */
 public interface MySelect extends WebElement {
 
-    default Select getSelect(){
+    default Select getSelect() {
         return new Select(this);
     }
 }

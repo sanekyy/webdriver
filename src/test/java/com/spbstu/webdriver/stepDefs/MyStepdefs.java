@@ -2,7 +2,6 @@ package com.spbstu.webdriver.stepDefs;
 
 import com.spbstu.MantisbtSite;
 import com.spbstu.pageObjects.BugReport;
-import com.spbstu.pageObjects.User;
 import com.spbstu.webdriver.helper.ResourceLoaderSTU;
 import com.spbstu.webdriver.mantisbt.MantisbtBaseTest;
 import cucumber.api.PendingException;
@@ -17,7 +16,7 @@ import org.testng.Assert;
 /**
  * Created by ihb on 18.04.17.
  */
-public class MyStepdefs extends MantisbtBaseTest{
+public class MyStepdefs extends MantisbtBaseTest {
 
     BugReport bugReport = ResourceLoaderSTU.getBugReport();
 

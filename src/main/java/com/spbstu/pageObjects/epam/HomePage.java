@@ -26,18 +26,18 @@ public class HomePage {
     @FindBy(xpath = "(//*[@class='sidebar-menu'] //a[@href='page1.htm'])[1]")
     private WebElement contactFormLink;
 
-    public void login(User user){
+    public void login(User user) {
         profileMenu.click();
         this.login.sendKeys(user.getLogin());
         this.password.sendKeys(user.getPassword());
         submit.click();
     }
 
-    public String getUserName(){
+    public String getUserName() {
         return userName.getText();
     }
 
-    public void openContactForm(){
+    public void openContactForm() {
         contactFormLink.click();
     }
 }

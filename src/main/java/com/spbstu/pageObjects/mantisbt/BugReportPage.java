@@ -64,7 +64,10 @@ public class BugReportPage extends BasePage {
         new Select(reproducibility).selectByVisibleText(bugReport.getReproducibility());
         new Select(severity).selectByVisibleText(bugReport.getSeverity());
         new Select(priority).selectByVisibleText(bugReport.getPriority());
-        try{profileClosedLink.click();} catch (Exception ignored){}
+        try {
+            profileClosedLink.click();
+        } catch (Exception ignored) {
+        }
         platform.sendKeys(bugReport.getPlatform());
         os.sendKeys(bugReport.getOs());
         osBuild.sendKeys(bugReport.getOsBuild());

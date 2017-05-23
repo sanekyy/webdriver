@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 public class EpamTests extends EpamBaseTest {
 
     @Test
-    public void contactFormTest(){
+    public void contactFormTest() {
         User user = ResourceLoaderSTU.getEpamUser("admin");
 
         EpamSite.open();

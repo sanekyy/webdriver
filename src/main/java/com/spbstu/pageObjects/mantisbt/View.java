@@ -59,14 +59,9 @@ public class View extends BasePage {
     WebElement changeStatus;
 
 
-
-
-
-
-
     public boolean isBugReportPresented(BugReport bugReport) {
         try {
-            if(bugReport.getReporter().equals(reporter.getText())
+            if (bugReport.getReporter().equals(reporter.getText())
                     && assignTo.getText().equals(bugReport.getAssignTo())
                     && reproducibility.getText().equals(bugReport.getReproducibility())
                     && severity.getText().equals(bugReport.getSeverity())
@@ -87,19 +82,19 @@ public class View extends BasePage {
                         && status.getText().equals("resolved")
                         && resolution.getText().equals("fixed"))
                     return true;
-                else if(bugReport.getStatus().equals("closed")
+                else if (bugReport.getStatus().equals("closed")
                         && status.getText().equals("closed")
                         && resolution.getText().equals("fixed"))
                     return true;
             }
 
             return false;
-        } catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
     }
 
-    public void changeStatus(String newStatus){
+    public void changeStatus(String newStatus) {
         new Select(changeStatus).selectByVisibleText(newStatus);
         changeStatusButton.click();
     }

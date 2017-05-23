@@ -1,33 +1,18 @@
 {
   "categoryText": "General",
-
   "categorySelectorText": "[All Projects] General",
-
   "reproducibility": "always",
-
   "severity": "block",
-
   "priority": "immediate",
-
   "platform": "[Intel,AMD]",
-
   "os": "Ubuntu",
-
   "osBuild": "16.04 LTS",
-
   "handlerId": 0,
-
   "reporter": "tester1",
-
   "assignTo": "dev1",
-
   "summary": "theme [0-9]{10,20}",
-
   "description": "description [0-9]{10,20}",
-
   "stepsToReproduce": "reproduce steps [0-9]{10,20}",
-
   "additionalInfo": "additional information [0-9]{10,20}",
-
   "tagString": "[0-9]{10,20}"
 }

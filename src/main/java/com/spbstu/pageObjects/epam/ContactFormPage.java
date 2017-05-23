@@ -23,17 +23,17 @@ public class ContactFormPage {
     @FindBy(xpath = "(//*[@id='mCSB_2_container'] //section)[2]")
     WebElement result;
 
-    public void fillContactForm(String name, String lastName, String description){
+    public void fillContactForm(String name, String lastName, String description) {
         this.name.sendKeys(name);
         this.lastName.sendKeys(lastName);
         this.description.sendKeys(description);
     }
 
-    public void submitContactForm(){
+    public void submitContactForm() {
         this.submit.click();
     }
 
-    public void getResult(){
+    public void getResult() {
         this.result.getText();
     }
 

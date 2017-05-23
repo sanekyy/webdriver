@@ -14,7 +14,7 @@ public class EpamSite {
     public static HomePage homePage;
     private static WebDriver driver;
 
-    public static void init(WebDriver driver){
+    public static void init(WebDriver driver) {
         EpamSite.contactFormPage = PageFactory.initElements(driver, ContactFormPage.class);
         EpamSite.homePage = PageFactory.initElements(driver, HomePage.class);
         EpamSite.driver = driver;

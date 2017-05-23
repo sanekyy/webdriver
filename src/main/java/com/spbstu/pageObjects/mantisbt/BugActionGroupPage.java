@@ -12,7 +12,7 @@ public class BugActionGroupPage extends BasePage {
     WebElement deleteIssuesButton;
 
 
-    public void confirmRemove(){
+    public void confirmRemove() {
         deleteIssuesButton.click();
     }
 }

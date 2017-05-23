@@ -16,7 +16,7 @@ public class BugChangeStatusPage extends BasePage {
     @FindBy(css = "tr:nth-child(3) > td > select")
     WebElement assignedTo;
 
-    public void confirm(){
+    public void confirm() {
         new Select(assignedTo).selectByVisibleText(MantisbtSite.currUser.getLogin());
         changeIssueStatusButton.click();
     }

@@ -23,7 +23,7 @@ public class MantisbtSite {
 
     private static WebDriver driver;
 
-    public static void init(WebDriver driver){
+    public static void init(WebDriver driver) {
         loginPage = PageFactory.initElements(driver, LoginPage.class);
         myViewPage = PageFactory.initElements(driver, MyViewPage.class);
         bugReportPage = PageFactory.initElements(driver, BugReportPage.class);
@@ -39,8 +39,8 @@ public class MantisbtSite {
         driver.navigate().to("http://localhost/mantisbt/login_page.php");
     }
 
-    public static void openBugById(int id){
-        driver.navigate().to("http://localhost/mantisbt/view.php?id="+id);
+    public static void openBugById(int id) {
+        driver.navigate().to("http://localhost/mantisbt/view.php?id=" + id);
         currPage = view;
     }
 }

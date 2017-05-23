@@ -2,7 +2,6 @@ package com.spbstu.pageObjects.mantisbt;
 
 import com.spbstu.MantisbtSite;
 import com.spbstu.pageObjects.User;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

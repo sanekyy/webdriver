@@ -1,4 +1,5 @@
 Feature: MantisFeature
+
   Scenario: MantisScenario
     Given Login as "tester1"
     And Open "bug report page"

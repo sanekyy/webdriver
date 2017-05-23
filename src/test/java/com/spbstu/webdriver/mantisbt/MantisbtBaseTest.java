@@ -3,9 +3,7 @@ package com.spbstu.webdriver.mantisbt;
 import com.spbstu.MantisbtSite;
 import com.spbstu.pageObjects.BugReport;
 import com.spbstu.webdriver.BaseTest;
-import org.junit.Before;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
 
 import java.util.ArrayList;
 import java.util.List;

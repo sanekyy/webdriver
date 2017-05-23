@@ -15,12 +15,12 @@ public class BasePage {
     @FindBy(css = "#sidebar > ul > li:nth-child(2) > a")
     private WebElement viewIssueButton;
 
-    public void openBugReportPage(){
+    public void openBugReportPage() {
         reportIssueButton.click();
         MantisbtSite.currPage = this;
     }
 
-    public void openViewAllBugPage(){
+    public void openViewAllBugPage() {
         viewIssueButton.click();
         MantisbtSite.currPage = this;
     }

@@ -6,12 +6,10 @@ import com.spbstu.pageObjects.BugReport;
 import com.spbstu.pageObjects.User;
 import lombok.SneakyThrows;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.net.URL;
 import java.util.Map;
 
 /**
@@ -37,19 +35,22 @@ public class ResourceLoaderSTU {
 
     private static void loadBugReport() {
         String rawData = getRawData(DATA_BUG_REPORT_JSON);
-        Type type = new TypeToken<BugReport>(){}.getType();
+        Type type = new TypeToken<BugReport>() {
+        }.getType();
         bugReport = new Gson().fromJson(rawData, type);
         bugReport.initFields();
     }
 
     @SneakyThrows
-    private static void loadUsers(){
+    private static void loadUsers() {
         String rawData = getRawData(DATA_EPAM_USERS_JSON);
-        Type type = new TypeToken<Map<String, User>>(){}.getType();
+        Type type = new TypeToken<Map<String, User>>() {
+        }.getType();
         epamUsers = new Gson().fromJson(rawData, type);
 
         rawData = getRawData(DATA_MANTISBT_USERS_JSON);
-        type = new TypeToken<Map<String, User>>(){}.getType();
+        type = new TypeToken<Map<String, User>>() {
+        }.getType();
         mantisbtUsers = new Gson().fromJson(rawData, type);
     }
 

@@ -1,18 +1,12 @@
 package com.spbstu.webdriver;
 
-import com.spbstu.EpamSite;
-import org.junit.After;
-import org.junit.Before;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
 
-import java.lang.reflect.Method;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -33,12 +27,12 @@ public class BaseTest {
     }
 
     @AfterTest
-    public void afterTest(){
-        if(driver != null)
+    public void afterTest() {
+        if (driver != null)
             driver.quit();
     }
 
-    protected void init(){
+    protected void init() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("start-maximized");
         options.addArguments("--lang=en-GB"); // for what?
@@ -46,7 +40,7 @@ public class BaseTest {
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
-    public void reopenDriver(){
+    public void reopenDriver() {
         driver.quit();
 
         init();
