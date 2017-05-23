@@ -29,7 +29,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <systemPropertyVariables>
-                        <webdriver.chrome.driver>/home/ihb/Documents/Testing/chromedriver</webdriver.chrome.driver>
+                        <webdriver.chrome.driver>chromedriver</webdriver.chrome.driver>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
