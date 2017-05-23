@@ -5,8 +5,10 @@ import com.google.gson.reflect.TypeToken;
 import com.spbstu.pageObjects.BugReport;
 import com.spbstu.pageObjects.User;
 import lombok.SneakyThrows;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.URL;
@@ -52,8 +54,8 @@ public class ResourceLoaderSTU {
     }
 
     private static String getRawData(String path) throws IOException {
-        URL resource = ResourceLoaderSTU.class.getClassLoader().getResource(path);
-        return IOUtils.toString(resource, "utf-8");
+        File file = new File("src/test/java/resources/" + path);
+        return FileUtils.readFileToString(file, "utf-8");
     }
 
     public static User getEpamUser(String key) {
